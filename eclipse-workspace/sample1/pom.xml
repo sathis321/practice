@@ -3,4 +3,7 @@
   <groupId>com.sample</groupId>
   <artifactId>sample1</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <build>
+    <finalName>MavenAPP</finalName>
+  </build>
 </project>
