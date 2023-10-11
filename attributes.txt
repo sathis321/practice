@@ -1,0 +1,43 @@
+[
+  {
+    "operation": "shift",
+    "spec": {
+      "*": {
+        "LoadBalancerArn": "Others.&",
+        "Attributes": "&"
+      }
+    }
+  },
+  {
+    "operation": "shift",
+    "spec": {
+      "Attributes": {
+        "*": {
+          "@2,Others": { "*": "[&1].&" }, // go two levels up the tree to reach the level of the "Others" object
+          "*": "[&1].&2.&" // group by indexes of the arrays by using [&1]
+            // bring the keys of the arrays by using &2 
+        }
+      }
+    }
+  },
+  { // pick only one components from the arrays with repeating values
+    "operation": "cardinality",
+    "spec": {
+      "*": {
+        "*": "ONE"
+      }
+    }
+  },
+  { // put the non-array elements to an individual elements(namely "Others")
+    "operation": "shift",
+    "spec": {
+      "*": {
+        "LoadBalancerArn": "[&1].LoadBalancerArn",
+        "Attributes": {
+          "Key": "[&2].key",
+          "Value": "[&2].Value"
+        }
+      }
+    }
+  }
+]
